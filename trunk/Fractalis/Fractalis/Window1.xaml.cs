@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Fractalis.Modules;
 using Microsoft.Win32;
+using Microsoft.Windows.Controls;
 
 namespace Fractalis
 {
@@ -13,11 +14,26 @@ namespace Fractalis
     {
         private readonly FractalisLibrary currentLibrary = new FractalisLibrary();
 
+        /// <summary>
+        /// Кисть для заливки фрактала. Цвет задается в ColorPicker.
+        /// </summary>
+        public SolidColorBrush FractalSolidColorBrush
+        {
+            get { return (SolidColorBrush)GetValue(FractalSolidColorBrushProperty); }
+            set { SetValue(FractalSolidColorBrushProperty, value); }
+        }
+
+        public static readonly DependencyProperty FractalSolidColorBrushProperty =
+            DependencyProperty.Register("FractalSolidColorBrush", typeof(SolidColorBrush), typeof(Window1),
+                    new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                        SelectedColorPropertyChanged));
+
         #region Constructor
 
         public Window1()
         {
             InitializeComponent();
+            FractalSolidColorBrush = new SolidColorBrush(Colors.Black);
         }
 
         #endregion
@@ -29,7 +45,7 @@ namespace Fractalis
             string error = TryGenerateFractal();
             if (!String.IsNullOrEmpty(error))
             {
-                MessageBox.Show(error);
+                Microsoft.Windows.Controls.MessageBox.Show(error);
             }
         }
 
@@ -57,7 +73,7 @@ namespace Fractalis
             Dictionary<char, string> addRules = LGrammareHelper.ParseAddRules(AddRules.Text);
 
             string serpWord = LGrammareHelper.TraceInputRules(AxiomText.Text, FRule.Text, bRule.Text, addRules, depth);
-            DrawingVisual dw = LGrammareHelper.DrawLFractalis(serpWord, angle, beginAngle, boundRect);
+            DrawingVisual dw = LGrammareHelper.DrawLFractalis(serpWord, angle, beginAngle, boundRect, FractalSolidColorBrush);
             labirinthusBitmap.Render(dw);
             FractalisImage.Source = labirinthusBitmap;
 
@@ -111,7 +127,7 @@ namespace Fractalis
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Microsoft.Windows.Controls.MessageBox.Show(ex.Message);
             }
         }
 
@@ -124,8 +140,14 @@ namespace Fractalis
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Microsoft.Windows.Controls.MessageBox.Show(ex.Message);
             }
+        }
+
+        private static void SelectedColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var window = (Window1)d;
+            window.TryGenerateFractal();
         }
     }
 }
