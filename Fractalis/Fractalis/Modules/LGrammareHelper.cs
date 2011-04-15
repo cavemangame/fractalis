@@ -113,22 +113,23 @@ namespace Fractalis.Modules
         /// <param name="angle">Угол поворота</param>
         /// <param name="beginAngle">Начальный угол</param>
         /// <param name="rect">BoundingRectangle</param>
+        /// <param name="brush">Кисть заливки</param>
         /// <returns>DrawingVisual c фракталом</returns>
-        public static DrawingVisual DrawLFractalis(string word, double angle, double beginAngle, BoundingRectangle rect)
+        public static DrawingVisual DrawLFractalis(string word, double angle, double beginAngle, BoundingRectangle rect, Brush brush)
         {
             BoundingRectangle oneRect = ComputeFractalisRectangle(word, angle, beginAngle);
             var fractalDiameter = Math.Max(oneRect.X1 - oneRect.X0, oneRect.Y1 - oneRect.Y0);
             var boundDiameter = Math.Min(rect.X1 - rect.X0, rect.Y1 - rect.Y0);
-            return DrawLFractalis(word, angle, beginAngle, rect, boundDiameter/fractalDiameter);
+            return DrawLFractalis(word, angle, beginAngle, rect, boundDiameter / fractalDiameter, brush);
         }
 
-        public static DrawingVisual DrawLFractalis(string word, double angle, double beginAngle, BoundingRectangle rect, double zoom)
+        public static DrawingVisual DrawLFractalis(string word, double angle, double beginAngle, BoundingRectangle rect, 
+            double zoom, Brush brush)
         {
             double x0 = 0, y0 = 0, x1 = 0, y1 = 0;
             double xMax = 0, xMin = Double.MaxValue, yMax = 0, yMin = Double.MaxValue;
             var branches = new Stack<TurtleStep>();
-            var primitiveBorderBrush = new SolidColorBrush(Colors.Black);
-            var primitiveBorderPen = new Pen(primitiveBorderBrush, 1.0);
+            var primitiveBorderPen = new Pen(brush, 1.0);
             double curAngle = beginAngle;
             var drawingVisual = new DrawingVisual();
             DrawingContext dc = drawingVisual.RenderOpen();
@@ -184,9 +185,15 @@ namespace Fractalis.Modules
                         yMax = y0;
                 }
             }
-            dc.DrawGeometry(primitiveBorderBrush, primitiveBorderPen, geo);
+            dc.DrawGeometry(brush, primitiveBorderPen, geo);
             dc.Close();
-            drawingVisual.Transform = new TranslateTransform(rect.X0-xMin, rect.Y0-yMin);
+
+            double xshift = (rect.X1 - rect.X0) - (xMax - xMin);
+            xshift = xshift <= 0 ? 0 : xshift/2;
+            double yshift = (rect.Y1 - rect.Y0) - (yMax - yMin);
+            yshift = yshift <= 0 ? 0 : yshift / 2;
+
+            drawingVisual.Transform = new TranslateTransform(rect.X0-xMin+xshift, rect.Y0-yMin+yshift);
 
             return drawingVisual;
         }
