@@ -15,17 +15,16 @@ namespace Fractalis
         private readonly FractalisLibrary currentLibrary = new FractalisLibrary();
 
         /// <summary>
-        /// Кисть для заливки фрактала. Цвет задается в ColorPicker.
+        /// Цвет фрактала. Задается в ColorPicker.
         /// </summary>
-        public SolidColorBrush FractalSolidColorBrush
+        public Color FractalColor
         {
-            get { return (SolidColorBrush)GetValue(FractalSolidColorBrushProperty); }
-            set { SetValue(FractalSolidColorBrushProperty, value); }
+            get { return (Color)GetValue(FractalColorProperty); }
+            set { SetValue(FractalColorProperty, value); }
         }
-
-        public static readonly DependencyProperty FractalSolidColorBrushProperty =
-            DependencyProperty.Register("FractalSolidColorBrush", typeof(SolidColorBrush), typeof(Window1),
-                    new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+        public static readonly DependencyProperty FractalColorProperty = DependencyProperty.Register(
+          "FractalColor", typeof(Color), typeof(Window1),
+          new FrameworkPropertyMetadata(Colors.Brown, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                                         SelectedColorPropertyChanged));
 
         #region Constructor
@@ -33,7 +32,7 @@ namespace Fractalis
         public Window1()
         {
             InitializeComponent();
-            FractalSolidColorBrush = new SolidColorBrush(Colors.Black);
+            FractalColor = Colors.Black;
         }
 
         #endregion
@@ -73,7 +72,8 @@ namespace Fractalis
             Dictionary<char, string> addRules = LGrammareHelper.ParseAddRules(AddRules.Text);
 
             string serpWord = LGrammareHelper.TraceInputRules(AxiomText.Text, FRule.Text, bRule.Text, addRules, depth);
-            DrawingVisual dw = LGrammareHelper.DrawLFractalis(serpWord, angle, beginAngle, boundRect, FractalSolidColorBrush);
+            DrawingVisual dw = LGrammareHelper.DrawLFractalis(serpWord, angle, beginAngle, boundRect, 
+                new SolidColorBrush(FractalColor));
             labirinthusBitmap.Render(dw);
             FractalisImage.Source = labirinthusBitmap;
 
