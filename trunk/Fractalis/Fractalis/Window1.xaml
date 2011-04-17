@@ -103,8 +103,8 @@
                     Цвет:
                 </Label>
                 <Controls:ColorPicker Grid.Column="1" Grid.Row="10"
-                                      SelectedColor="{Binding FractalSolidColorBrush.Color, Mode=OneWay}"
-                                      CurrentColor="{Binding FractalSolidColorBrush.Color}" />
+                                      SelectedColor="{Binding FractalColor, Mode=OneTime}"
+                                      CurrentColor="{Binding FractalColor}" />
             </Grid>
             <StackPanel>
                 <Button Margin="50, 5" Click="ButtonFractal_Click">Рисовать</Button>
