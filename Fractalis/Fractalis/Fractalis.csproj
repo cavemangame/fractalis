@@ -72,12 +72,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modules\BoundingRectangle.cs" />
-    <Compile Include="Modules\FractalisInfo.cs" />
-    <Compile Include="Modules\FractalisLibrary.cs" />
-    <Compile Include="Modules\LGrammareHelper.cs" />
-    <Compile Include="Modules\LLanguage.cs" />
-    <Compile Include="Modules\TurtleStep.cs" />
+    <Compile Include="IFS\AffineMap.cs" />
+    <Compile Include="IFS\CoordinateTranslator.cs" />
+    <Compile Include="IFS\Matrix.cs" />
+    <Compile Include="IFS\Vector.cs" />
+    <Compile Include="LGrammaire\BoundingRectangle.cs" />
+    <Compile Include="LGrammaire\FractalisInfo.cs" />
+    <Compile Include="LGrammaire\FractalisLibrary.cs" />
+    <Compile Include="LGrammaire\LGrammareHelper.cs" />
+    <Compile Include="LGrammaire\LLanguage.cs" />
+    <Compile Include="LGrammaire\TurtleStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
