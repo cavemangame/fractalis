@@ -103,7 +103,7 @@
                     Цвет:
                 </Label>
                 <Controls:ColorPicker Grid.Column="1" Grid.Row="10"
-                                      SelectedColor="{Binding FractalColor, Mode=OneTime}"
+                                      SelectedColor="{Binding FractalColor, Mode=TwoWay}"
                                       CurrentColor="{Binding FractalColor}" />
             </Grid>
             <StackPanel>
