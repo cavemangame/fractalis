@@ -37,6 +37,7 @@ namespace Fractalis
             DataContext = this;
             FractalColorPicker.DataContext = this;
             FractalColor = Colors.Black;
+            CoordinateTranslator.TestTranslator();
         }
 
         #endregion
