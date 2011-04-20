@@ -39,7 +39,7 @@
                 </Label>
                 <ComboBox Name="FractalSelector"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
                           ItemsSource="{Binding Path=Fractals}" DisplayMemberPath="Name" MaxWidth="150"
-                          IsSynchronizedWithCurrentItem="True">
+                          IsSynchronizedWithCurrentItem="True" SelectionChanged="FractalSelector_SelectionChanged">
                 </ComboBox>
 
                 <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center">
@@ -81,28 +81,27 @@
                 <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right">
                     Угол:
                 </Label>
-                <TextBox Name="Angle" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" IsEnabled="False" MaxWidth="150"
-                         Text="{Binding Path=Fractals/Angle}">
-                </TextBox>
+                <Controls:NumericUpDown  Name="Angle" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" IsEnabled="False" MaxWidth="150"
+                         Text="{Binding Path=Fractals/Angle}"/>
                 
                 <Label Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right">
                     Глубина:
                 </Label>
-                <TextBox Name="Depth" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="8" MaxWidth="150"
-                         Text="{Binding Path=Fractals/Depth}">
-                </TextBox>
+                <Controls:NumericUpDown  Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="8" MaxWidth="150"
+                                         Text="{Binding Path=Fractals/Depth}"/>
+
 
                 <Label Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right">
                     Начальный угол:
                 </Label>
-                <TextBox Name="BeginAngle" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" 
-                         Text="{Binding Path=Fractals/BeginAngle}">
-                </TextBox>
+                <Controls:NumericUpDown  Name="BeginAngle" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" 
+                         Text="{Binding Path=Fractals/BeginAngle}"/>
+
 
                 <Label Grid.Column="0" Grid.Row="10" HorizontalAlignment="Right">
                     Цвет:
                 </Label>
-                <Controls:ColorPicker Grid.Column="1" Grid.Row="10"
+                <Controls:ColorPicker Name="FractalColorPicker" Grid.Column="1" Grid.Row="10"
                                       SelectedColor="{Binding FractalColor, Mode=TwoWay}"
                                       CurrentColor="{Binding FractalColor}" />
             </Grid>
