@@ -34,11 +34,9 @@ namespace Fractalis
         public Window1()
         {
             InitializeComponent();
+            DataContext = this;
+            FractalColorPicker.DataContext = this;
             FractalColor = Colors.Black;
-            if (!CoordinateTranslator.TestTranslator())
-            {
-                MessageBox.Show("CoordinateTranslator.TestTranslator failed");
-            }
         }
 
         #endregion
@@ -50,7 +48,7 @@ namespace Fractalis
             string error = TryGenerateFractal();
             if (!String.IsNullOrEmpty(error))
             {
-                Microsoft.Windows.Controls.MessageBox.Show(error);
+                MessageBox.Show(error);
             }
         }
 
@@ -111,6 +109,8 @@ namespace Fractalis
 
         #endregion
 
+        #region events
+
         private void LibraryLoad_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -155,5 +155,11 @@ namespace Fractalis
             var window = (Window1)d;
             window.TryGenerateFractal();
         }
+
+        private void FractalSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            TryGenerateFractal();
+        }
+        #endregion
     }
 }
