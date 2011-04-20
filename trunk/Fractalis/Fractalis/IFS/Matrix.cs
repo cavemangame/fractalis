@@ -48,14 +48,15 @@ namespace Fractalis.IFS
             {
                 throw new InvalidOperationException("Размерности матриц не совпадают");
             }
+            var res = new Matrix(Dim);
             for (int i = 0; i < Dim; i++)
             {
                 for (int j = 0; j < Dim; j++)
                 {
-                    values[i, j] += other[i, j];
+                    res[i, j] = values[i, j] + other[i, j];
                 }
             }
-            return this;
+            return res;
         }
 
         public Matrix Sub(Matrix other)
@@ -64,23 +65,25 @@ namespace Fractalis.IFS
             {
                 throw new InvalidOperationException("Размерности матриц не совпадают");
             }
+            var res = new Matrix(Dim);
             for (int i = 0; i < Dim; i++)
             {
                 for (int j = 0; j < Dim; j++)
                 {
-                    values[i, j] -= other[i, j];
+                    res[i, j] = values[i, j] - other[i, j];
                 }
             }
-            return this;
+            return res;
         }
 
         public Matrix Mul(Double k)
         {
+            var res = new Matrix(Dim);
             for (int i = 0; i < Dim; i++)
             {
                 for (int j = 0; j < Dim; j++)
                 {
-                    values[i, j] *= k;
+                   res[i, j] = values[i, j] * k;
                 }
             }
             return this;
@@ -92,7 +95,7 @@ namespace Fractalis.IFS
             {
                 throw new InvalidOperationException("Размерности матриц не совпадают");
             }
-            var C = new Matrix(Dim);
+            var res = new Matrix(Dim);
             for (int i = 0; i < Dim; i++)
             {
                 for (int j = 0; j < Dim; j++)
@@ -102,19 +105,32 @@ namespace Fractalis.IFS
                     {
                         sum += values[i, k]*other[k, j];
                     }
-                    C[i, j] = sum;
+                    res[i, j] = sum;
                 }
             }
 
+            return res;
+        }
+
+        public Vector Mul(Vector vec)
+        {
+            if (vec.Dim != Dim)
+            {
+                throw new InvalidOperationException("Размерности матриц не совпадают");
+            }
+            var w = new Vector(Dim);
             for (int i = 0; i < Dim; i++)
             {
+                double sum = 0;
+
                 for (int j = 0; j < Dim; j++)
                 {
-                    values[i, j] = C[i, j];
+                    sum += values[i, j] * vec[j];
                 }
+                w[i] = sum;
             }
-            return this;
-
+   
+            return w;
         }
     }
 }

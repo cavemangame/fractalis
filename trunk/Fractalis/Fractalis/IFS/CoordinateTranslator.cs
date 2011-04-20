@@ -20,8 +20,6 @@ namespace Fractalis.IFS
             {
                 throw new ArgumentException("Неверные размерности ограничивающих квадратов");
             }
-            // TODO: check for invalid params
-            double a, b, c, d, e, f;
 
             double M11 = (second[0, 1] - second[0, 0]) / (first[0, 1] - first[0, 0]);
             double M22 = (second[1, 1] - second[1, 0]) / (first[1, 1] - first[1, 0]);
@@ -29,14 +27,17 @@ namespace Fractalis.IFS
             double w1 = second[0, 0] - M11 * first[0, 0];
             double w2 = second[1, 0] - M22 * first[1, 0];
 
-            a = map.a;
-            b = (M11 / M22) * map.b;
-            c = (M22 / M11) * map.c;
-            d = map.d;
-            e = (1 - a) * w1 - b * w2 + M11 * map.e;
-            f = -c * w1 + (1 - d) * w2 + M22 * map.f;
+            var M = new Matrix(2, new[,] { { M11, 0 }, { 0, M22 } });
+            var Mret = new Matrix(2, new[,] { { 1 / M11, 0 }, { 0, 1 / M22 } });
+            var w = new Vector(2, new[] {w1, w2});
+            var E = new Matrix(2, new double[,] {{1, 0}, {0, 1}});
 
-            return new AffineMap {a = a, b = b, c = c, d = d, e = e, f = f};
+            // T' = A'x+a', где 
+            // A' = MAM(-1 - обратная)
+            // a' = (E-A')w + Ma
+            var translatedMap = new AffineMap {M = M.Mul(map.M).Mul(Mret)};
+            translatedMap.W = E.Sub(translatedMap.M).Mul(w).Add(M.Mul(map.W));
+            return translatedMap;
         } 
 
         public static bool TestTranslator()

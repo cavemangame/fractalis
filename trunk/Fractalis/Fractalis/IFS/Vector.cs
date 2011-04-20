@@ -20,10 +20,15 @@ namespace Fractalis.IFS
 
         public Vector(int dim, double[] values)
         {
-            this.Dim = dim;
+            Dim = dim;
             this.values = values;
         }
 
+        public Vector(int dim)
+        {
+            Dim = dim;
+            values = new double[Dim];
+        }
 
         public double this[int idx]
         {
@@ -52,11 +57,12 @@ namespace Fractalis.IFS
                 throw new InvalidOperationException("Размерности векторов не совпадают");
             }
 
-            for (int i = 0; i <= Dim; i++)
+            var res = new Vector(Dim);
+            for (int i = 0; i < Dim; i++)
             {
-                values[i] += other.values[i];
+                res[i] = values[i] + other.values[i];
             }
-            return this;
+            return res;
         }
 
         public Vector Sub(Vector other)
@@ -66,20 +72,22 @@ namespace Fractalis.IFS
                 throw new InvalidOperationException("Размерности векторов не совпадают");
             }
 
-            for (int i = 0; i <= Dim; i++)
+            var res = new Vector(Dim);
+            for (int i = 0; i < Dim; i++)
             {
-                values[i] -= other.values[i];
+                res[i] = values[i] - other.values[i];
             }
-            return this;
+            return res;
         }
 
         public Vector Mul(Double k)
         {
-            for (int i = 0; i <= Dim; i++)
+            var res = new Vector(Dim);
+            for (int i = 0; i < Dim; i++)
             {
-                values[i] *= k;
+                res[i] = values[i] * k;
             }
-            return this;
+            return res;
         }
 
         /// <summary>
@@ -93,7 +101,7 @@ namespace Fractalis.IFS
             }
 
             double result = 0;
-            for (int i = 0; i <= Dim; i++)
+            for (int i = 0; i < Dim; i++)
             {
                 result += (values[i] * other.values[i]);
             }
@@ -106,7 +114,7 @@ namespace Fractalis.IFS
         public double Square()
         {
             double result = 0;
-            for (int i = 0; i <= Dim; i++)
+            for (int i = 0; i < Dim; i++)
             {
                 result += (values[i] * values[i]);
             }
