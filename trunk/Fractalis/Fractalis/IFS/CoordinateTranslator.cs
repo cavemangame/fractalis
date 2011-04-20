@@ -33,10 +33,10 @@ namespace Fractalis.IFS
             var E = new Matrix(2, new double[,] {{1, 0}, {0, 1}});
 
             // T' = A'x+a', где 
-            // A' = MAM(-1 - обратная)
+            // A' = MAM'(M' - обратная)
             // a' = (E-A')w + Ma
-            var translatedMap = new AffineMap {M = M.Mul(map.M).Mul(Mret)};
-            translatedMap.W = E.Sub(translatedMap.M).Mul(w).Add(M.Mul(map.W));
+            var translatedMap = new AffineMap {M = M * map.M * Mret};
+            translatedMap.W = (E - translatedMap.M) * w + M * map.W; 
             return translatedMap;
         } 
 

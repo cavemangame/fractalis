@@ -132,5 +132,39 @@ namespace Fractalis.IFS
    
             return w;
         }
+
+        #region Operator overrides
+
+        public static Matrix operator +(Matrix m1, Matrix m2)
+        {
+            return m1.Add(m2);
+        }
+
+        public static Matrix operator -(Matrix m1, Matrix m2)
+        {
+            return m1.Sub(m2);
+        }
+
+        public static Matrix operator *(Matrix m1, double k)
+        {
+            return m1.Mul(k);
+        }
+
+        public static Matrix operator *(double k, Matrix m2)
+        {
+            return m2.Mul(k);
+        }
+
+        public static Vector operator *(Matrix m1, Vector v1)
+        {
+            return m1.Mul(v1);
+        }
+
+        public static Matrix operator *(Matrix m1, Matrix m2)
+        {
+            return m1.Mul(m2);
+        }
+
+        #endregion
     }
 }

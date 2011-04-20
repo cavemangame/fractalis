@@ -128,5 +128,29 @@ namespace Fractalis.IFS
         {
             return Math.Sqrt(Square());
         }
+
+        #region Operators overrides
+
+        public static Vector operator +(Vector v1, Vector v2)
+        {
+            return v1.Add(v2);
+        }
+
+        public static Vector operator -(Vector v1, Vector v2)
+        {
+            return v1.Sub(v2);
+        }
+
+        public static Vector operator *(Vector v1, double k)
+        {
+            return v1.Mul(k);
+        }
+
+        public static Vector operator *(double k, Vector v2)
+        {
+            return v2.Mul(k);
+        }
+
+        #endregion
     }
 }
