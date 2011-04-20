@@ -112,5 +112,13 @@ namespace Fractalis.IFS
             }
             return result;
         }
+
+        /// <summary>
+        /// Норма
+        /// </summary>
+        public double Norm()
+        {
+            return Math.Sqrt(Square());
+        }
     }
 }

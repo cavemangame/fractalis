@@ -4,9 +4,11 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Fractalis.IFS;
 using Fractalis.LGrammaire;
 using Microsoft.Win32;
 using Microsoft.Windows.Controls;
+using MessageBox=Microsoft.Windows.Controls.MessageBox;
 
 namespace Fractalis
 {
@@ -33,6 +35,10 @@ namespace Fractalis
         {
             InitializeComponent();
             FractalColor = Colors.Black;
+            if (!CoordinateTranslator.TestTranslator())
+            {
+                MessageBox.Show("CoordinateTranslator.TestTranslator failed");
+            }
         }
 
         #endregion

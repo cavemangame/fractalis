@@ -75,6 +75,7 @@
     <Compile Include="IFS\AffineMap.cs" />
     <Compile Include="IFS\CoordinateTranslator.cs" />
     <Compile Include="IFS\Matrix.cs" />
+    <Compile Include="IFS\Utils.cs" />
     <Compile Include="IFS\Vector.cs" />
     <Compile Include="LGrammaire\BoundingRectangle.cs" />
     <Compile Include="LGrammaire\FractalisInfo.cs" />

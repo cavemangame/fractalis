@@ -38,5 +38,17 @@ namespace Fractalis.IFS
 
             return new AffineMap {a = a, b = b, c = c, d = d, e = e, f = f};
         } 
+
+        public static bool TestTranslator()
+        {
+            var testMap = new AffineMap {a = 2, b = -1, c = 3, d = 4, e = 1, f = -1};
+            var world = new Matrix(2, new double[,] { { 0, 8 }, {-2, 14 } });
+            var screen = new Matrix(2, new double[,] { { 0, 640 }, { 480, 0 } });
+
+            var translateMap = Translate(testMap, world, screen);
+            var expectedMap = new AffineMap {a = 2, b = 2.6667, c = -1.125, d = 4, e = -1040, f = -1230};
+
+            return expectedMap.AlmostEqual(translateMap);
+        }
     }
 }
