@@ -129,6 +129,12 @@ namespace Fractalis.IFS
             return Math.Sqrt(Square());
         }
 
+        public Vector Copy()
+        {
+           
+            return new Vector(Dim, values);
+        }
+
         #region Operators overrides
 
         public static Vector operator +(Vector v1, Vector v2)

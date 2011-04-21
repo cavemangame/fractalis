@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="IFS\AffineMap.cs" />
     <Compile Include="IFS\CoordinateTranslator.cs" />
+    <Compile Include="IFS\DIFS.cs" />
     <Compile Include="IFS\Matrix.cs" />
     <Compile Include="IFS\ScreenMapper.cs" />
     <Compile Include="IFS\Utils.cs" />

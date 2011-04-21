@@ -133,6 +133,11 @@ namespace Fractalis.IFS
             return w;
         }
 
+        public Matrix Copy()
+        {
+            return new Matrix(Dim, values);
+        }
+
         #region Operator overrides
 
         public static Matrix operator +(Matrix m1, Matrix m2)
