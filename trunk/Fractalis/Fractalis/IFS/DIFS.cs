@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Fractalis.IFS
 {
@@ -9,27 +11,26 @@ namespace Fractalis.IFS
     {
         public List<AffineMap> Axioms { get; set; }
 
-        // TODO: generalize Matrix and Vector
-        public Matrix GetAttractor(Matrix start, int screenSize, int depth)
+        public BitmapSource GetAttractor(ScreenMapper start, int screenSize, int depth)
         {
-            Matrix S = new Matrix(start.Dim);
-            Matrix T = start.Copy();
+            var S = new ScreenMapper(screenSize);
+            ScreenMapper T = start.Copy();
 
             for (int k = 0; k < depth; k++)
             {
-                for (int i = 0; i < start.Dim; i++)
+                for (int i = 0; i < screenSize; i++)
                 {
-                    for (int j = 0; j < start.Dim; j++)
+                    for (int j = 0; j < screenSize; j++)
                     {
                         if (T[i, j] == 1)
                         {
                             for (int l = 0; l < Axioms.Count; l++)
                             {
                                 double ii = Axioms[l].a*i + Axioms[l].b*j + Axioms[l].e + 1;
-                                if (1 <= ii && ii <= start.Dim)
+                                if (1 <= ii && ii <= screenSize)
                                 {
                                     double jj = Axioms[l].c * i + Axioms[l].d * j + Axioms[l].f + 1;
-                                    if (1 <= jj && jj <= start.Dim)
+                                    if (1 <= jj && jj <= screenSize)
                                     {
                                         S[(int)ii, (int)jj] = 1;
                                     }
@@ -40,8 +41,9 @@ namespace Fractalis.IFS
 
                 }
                 T = S.Copy();
+                S = new ScreenMapper(screenSize);
             }
-            return T;
+            return T.GetBitmap(Colors.Black);
         }
 
     }
