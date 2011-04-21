@@ -131,7 +131,6 @@ namespace Fractalis.IFS
 
         public Vector Copy()
         {
-           
             return new Vector(Dim, values);
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -18,6 +16,12 @@ namespace Fractalis.IFS
         public int N { get; set; }
 
         private byte[,] map;
+
+        public ScreenMapper(int n)
+        {
+            N = n;
+            map = new byte[n, n];
+        }
 
         public byte this[int x, int y]
         {
@@ -39,11 +43,16 @@ namespace Fractalis.IFS
             }
         }
 
-        public void TestBitmaps(Color color)
+        public ScreenMapper Copy()
         {
-            List<Color> colors = new List<Color> { Colors.Red, Colors.Blue, Colors.Green };
-            BitmapPalette myPalette = new BitmapPalette(colors);
-            byte[] rawData = new byte[N * N];
+            return new ScreenMapper(N) {map = map};
+        }
+
+        public BitmapSource GetBitmap(Color color)
+        {
+            var colors = new List<Color> { Colors.Red, Colors.Blue, Colors.Green };
+            var myPalette = new BitmapPalette(colors);
+            var rawData = new byte[N * N];
             int stride = N * 3 + (N * 3) % 4;
 
 
@@ -58,8 +67,7 @@ namespace Fractalis.IFS
                 }
             }
 
-            BitmapSource src = BitmapSource.Create(N, N, 96, 96, PixelFormats.Bgr32, myPalette, rawData, stride);
-
+           return  BitmapSource.Create(N, N, 96, 96, PixelFormats.Bgr32, myPalette, rawData, stride);
         }
 
          private void SetPixel(ref byte[] bits, int x, int y,int stride, Color c)
