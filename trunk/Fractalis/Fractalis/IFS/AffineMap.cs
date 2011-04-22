@@ -54,6 +54,14 @@ namespace Fractalis.IFS
             }
         }   
 
+        /// <summary>
+        /// Определитель аффинного отображения есть определитель М
+        /// </summary>
+        public double Det
+        {
+            get { return a * d - b * c; }
+        }
+
         public bool AlmostEqual(AffineMap other)
         {
             return Utils.AlmostEqual(a, other.a) && Utils.AlmostEqual(b, other.b) &&
