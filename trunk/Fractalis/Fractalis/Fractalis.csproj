@@ -67,6 +67,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AffineFractalsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LGrammarePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,10 +89,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AffineFractalsPage.xaml.cs">
+      <DependentUpon>AffineFractalsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IFS\AffineMap.cs" />
     <Compile Include="IFS\AffineRandomGenerator.cs" />
     <Compile Include="IFS\CoordinateTranslator.cs" />
     <Compile Include="IFS\DIFS.cs" />
+    <Compile Include="IFS\IFSInfo.cs" />
+    <Compile Include="IFS\IFSLibrary.cs" />
     <Compile Include="IFS\Matrix.cs" />
     <Compile Include="IFS\ScreenMapper.cs" />
     <Compile Include="IFS\Utils.cs" />

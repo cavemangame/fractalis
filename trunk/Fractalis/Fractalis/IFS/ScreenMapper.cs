@@ -51,7 +51,7 @@ namespace Fractalis.IFS
         public BitmapSource GetBitmap(Color color)
         {
             var colors = new List<Color> { Colors.Red, Colors.Blue, Colors.Green };
-            var myPalette = new BitmapPalette(colors);
+            var palette = new BitmapPalette(colors);
             var rawData = new byte[N * N];
             int stride = N * 3 + (N * 3) % 4;
 
@@ -67,7 +67,7 @@ namespace Fractalis.IFS
                 }
             }
 
-           return  BitmapSource.Create(N, N, 96, 96, PixelFormats.Bgr32, myPalette, rawData, stride);
+           return  BitmapSource.Create(N, N, 96, 96, PixelFormats.Bgr32, palette, rawData, stride);
         }
 
          private void SetPixel(ref byte[] bits, int x, int y,int stride, Color c)

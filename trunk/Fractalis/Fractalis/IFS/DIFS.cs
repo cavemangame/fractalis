@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System;
 
 namespace Fractalis.IFS
 {
@@ -11,7 +12,7 @@ namespace Fractalis.IFS
     {
         public List<AffineMap> Axioms { get; set; }
 
-        public BitmapSource GetAttractor(ScreenMapper start, int screenSize, int depth)
+        private BitmapSource GetAttractor(ScreenMapper start, int screenSize, int depth)
         {
             var S = new ScreenMapper(screenSize);
             ScreenMapper T = start.Copy();
@@ -46,5 +47,44 @@ namespace Fractalis.IFS
             return T.GetBitmap(Colors.Black);
         }
 
+         public BitmapSource GetAttractor(int screenSize, int depth)
+         {
+             return GetAttractor(GetDefaultScreenMap(), screenSize, depth);
+         }
+
+         private ScreenMapper GetDefaultScreenMap()
+         {
+             throw new NotImplementedException();
+         }
+
+        /// <summary>
+        /// Парсим строку входных преобразований, и транслируем их на экран [0, size][0, size]
+        /// </summary>
+        /// <param name="rules">правила</param>
+        /// <param name="size">размеры квадратного экрана</param>
+        public void ParseAndTranslateFunctions(string text, double size)
+        {
+            if (String.IsNullOrEmpty(text))
+                return;
+
+            string[] rules = text.Split(';');
+            if (rules.Length == 0)
+                return;
+
+            Matrix world = new Matrix(2, new double[,] { { 0, 1 }, { 0, 1 } });
+            Matrix screen = new Matrix(2, new double[,] { { 0, size }, { 0, size } });
+            Axioms = new List<AffineMap>(rules.Length);
+
+            foreach (var rule in rules)
+            {
+                AffineMap affineMap = ParseRule(rule);
+                Axioms.Add(CoordinateTranslator.Translate(affineMap, world, screen));
+            }
+        }
+
+        private AffineMap ParseRule(string rule)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
