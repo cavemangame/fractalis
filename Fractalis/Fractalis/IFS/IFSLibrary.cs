@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Fractalis.IFS
 {
@@ -28,8 +29,8 @@ namespace Fractalis.IFS
                 foreach (var info in Fractals)
                 {
                     sw.WriteLine(info.Name);
-                    sw.WriteLine(info.Rules);
                     sw.WriteLine(info.Depth);
+                    sw.WriteLine(info.Rules);
                     sw.WriteLine();
                 }
                 sw.Flush();
@@ -52,13 +53,21 @@ namespace Fractalis.IFS
                     Fractals = new List<IFSInfo>();
                     while (!sr.EndOfStream)
                     {
-                        Fractals.Add(new IFSInfo
+                        var info = new IFSInfo()
+                                       {
+                                           Name = sr.ReadLine(),
+                                           Depth = Convert.ToInt32(sr.ReadLine())
+                                       };
+
+                        var sb = new StringBuilder();
+                        while (!sr.EndOfStream)
                         {
-                            Name = sr.ReadLine(),
-                            Rules = sr.ReadLine(),
-                            Depth = Convert.ToInt32(sr.ReadLine())
-                        });
-                        sr.ReadLine();
+                            string s = sr.ReadLine();
+                            if (String.IsNullOrEmpty(s))
+                                break;
+                            sb.Append(s + Environment.NewLine);
+                        }
+                        info.Rules = sb.ToString();
                     }
                 }
             }

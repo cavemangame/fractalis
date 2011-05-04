@@ -7,6 +7,7 @@ namespace Fractalis.IFS
 {
     /// <summary>
     /// Реализация детерминированного СИФ
+    /// TODO: вынести базовый для DIFS и RIFS класс
     /// </summary>
     public class DIFS
     {
@@ -49,42 +50,68 @@ namespace Fractalis.IFS
 
          public BitmapSource GetAttractor(int screenSize, int depth)
          {
-             return GetAttractor(GetDefaultScreenMap(), screenSize, depth);
+             return GetAttractor(GetDefaultScreenMap(screenSize), screenSize, depth);
          }
 
-         private ScreenMapper GetDefaultScreenMap()
+         private ScreenMapper GetDefaultScreenMap(int n)
          {
-             throw new NotImplementedException();
+             // начальная карта - весь квадрат
+             ScreenMapper screenMapper = new ScreenMapper(n);
+             for (int i = 0; i < n; i++)
+             {
+                 for (int j = 0; j < n; j++)
+                 {
+                     screenMapper[i, j] = 1;
+                 }
+             }
+             return screenMapper;
          }
 
         /// <summary>
         /// Парсим строку входных преобразований, и транслируем их на экран [0, size][0, size]
         /// </summary>
-        /// <param name="rules">правила</param>
+        /// <param name="text">правила</param>
         /// <param name="size">размеры квадратного экрана</param>
         public void ParseAndTranslateFunctions(string text, double size)
         {
             if (String.IsNullOrEmpty(text))
                 return;
-
-            string[] rules = text.Split(';');
+            // TODO: fix, split by newline
+            string[] rules = text.Split();
             if (rules.Length == 0)
                 return;
 
-            Matrix world = new Matrix(2, new double[,] { { 0, 1 }, { 0, 1 } });
-            Matrix screen = new Matrix(2, new double[,] { { 0, size }, { 0, size } });
+            var world = new Matrix(2, new double[,] { { 0, 1 }, { 0, 1 } });
+            var screen = new Matrix(2, new[,] { { 0, size }, { 0, size } });
             Axioms = new List<AffineMap>(rules.Length);
 
             foreach (var rule in rules)
             {
                 AffineMap affineMap = ParseRule(rule);
-                Axioms.Add(CoordinateTranslator.Translate(affineMap, world, screen));
+                if (affineMap != null)
+                {
+                    Axioms.Add(CoordinateTranslator.Translate(affineMap, world, screen));
+                }
             }
         }
 
         private AffineMap ParseRule(string rule)
         {
-            throw new NotImplementedException();
+            string[] koef = rule.Split(';');
+            if (koef.Length != 6)
+                return null;
+            // просто аффинные коэффициенты через ";"
+            var map = new AffineMap
+                          {
+                              a = Convert.ToDouble(koef[0]),
+                              b = Convert.ToDouble(koef[1]),
+                              c = Convert.ToDouble(koef[2]),
+                              d = Convert.ToDouble(koef[3]),
+                              e = Convert.ToDouble(koef[4]),
+                              f = Convert.ToDouble(koef[5])
+                          };
+
+            return map;
         }
     }
 }
