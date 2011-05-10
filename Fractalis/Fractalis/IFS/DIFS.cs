@@ -13,7 +13,7 @@ namespace Fractalis.IFS
     {
         public List<AffineMap> Axioms { get; set; }
 
-        private BitmapSource GetAttractor(ScreenMapper start, int screenSize, int depth)
+        private BitmapSource GetAttractor(ScreenMapper start, int screenSize, int depth, Color fractalColor)
         {
             var S = new ScreenMapper(screenSize);
             ScreenMapper T = start.Copy();
@@ -28,11 +28,11 @@ namespace Fractalis.IFS
                         {
                             for (int l = 0; l < Axioms.Count; l++)
                             {
-                                double ii = Axioms[l].a*i + Axioms[l].b*j + Axioms[l].e + 1;
-                                if (1 <= ii && ii <= screenSize)
+                                double ii = Axioms[l].a * i + Axioms[l].b * j + Axioms[l].e + 1;
+                                if (0 <= ii && ii < screenSize)
                                 {
                                     double jj = Axioms[l].c * i + Axioms[l].d * j + Axioms[l].f + 1;
-                                    if (1 <= jj && jj <= screenSize)
+                                    if (0 <= jj && jj < screenSize)
                                     {
                                         S[(int)ii, (int)jj] = 1;
                                     }
@@ -45,27 +45,27 @@ namespace Fractalis.IFS
                 T = S.Copy();
                 S = new ScreenMapper(screenSize);
             }
-            return T.GetBitmap(Colors.Black);
+            return T.GetBitmap(fractalColor);
         }
 
-         public BitmapSource GetAttractor(int screenSize, int depth)
-         {
-             return GetAttractor(GetDefaultScreenMap(screenSize), screenSize, depth);
-         }
+        public BitmapSource GetAttractor(int screenSize, int depth, Color fractalColor)
+        {
+            return GetAttractor(GetDefaultScreenMap(screenSize), screenSize, depth, fractalColor);
+        }
 
-         private ScreenMapper GetDefaultScreenMap(int n)
-         {
-             // начальная карта - весь квадрат
-             ScreenMapper screenMapper = new ScreenMapper(n);
-             for (int i = 0; i < n; i++)
-             {
-                 for (int j = 0; j < n; j++)
-                 {
-                     screenMapper[i, j] = 1;
-                 }
-             }
-             return screenMapper;
-         }
+        private ScreenMapper GetDefaultScreenMap(int n)
+        {
+            // начальная карта - весь квадрат
+            var screenMapper = new ScreenMapper(n);
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    screenMapper[i, j] = 1;
+                }
+            }
+            return screenMapper;
+        }
 
         /// <summary>
         /// Парсим строку входных преобразований, и транслируем их на экран [0, size][0, size]
