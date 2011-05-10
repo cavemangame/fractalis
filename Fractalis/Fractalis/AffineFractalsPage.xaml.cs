@@ -56,9 +56,17 @@ namespace Fractalis
             int depth = String.IsNullOrEmpty(Depth.Text) ? 3 : Convert.ToInt32(Depth.Text);
             double size = Math.Min(FractalisImagePanel.ActualWidth, FractalisImagePanel.ActualHeight);
 
-            var difsAlgo = new DIFS();
-            difsAlgo.ParseAndTranslateFunctions(Functions.Text, size);
-            FractalisImage.Source = difsAlgo.GetAttractor((int)size, depth, FractalColor);
+            IFS.IFS ifsAlgo = null;
+            if (DifsAlgo.IsChecked.Value)
+            {
+                ifsAlgo = new DIFS();
+            }
+            else
+            {
+                ifsAlgo = new RIFS();
+            }
+            ifsAlgo.ParseAndTranslateFunctions(Functions.Text, size);
+            FractalisImage.Source = ifsAlgo.GetAttractor((int)size, depth, FractalColor);
 
             return null;
         }

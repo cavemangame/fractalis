@@ -14,6 +14,8 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -53,10 +55,13 @@
                 <Controls:NumericUpDown  Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="4" MaxWidth="180"
                                          Text="{Binding Path=Fractals/Depth}"/>
 
-                <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right">
+                <RadioButton Name="DifsAlgo" GroupName="Ifs" Content="DIFS" Grid.Column="0" Grid.Row="5" IsChecked="True" HorizontalAlignment="Center"/>
+                <RadioButton Name="RifsAlgo" GroupName="Ifs" Content="RIFS" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"/>
+
+                <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right">
                     Цвет:
                 </Label>
-                <Controls:ColorPicker Name="FractalColorPicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5"
+                <Controls:ColorPicker Name="FractalColorPicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"
                                       SelectedColor="{Binding FractalColor, Mode=TwoWay}"
                                       CurrentColor="{Binding FractalColor}" />
             </Grid>

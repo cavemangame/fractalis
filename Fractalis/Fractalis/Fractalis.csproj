@@ -96,9 +96,11 @@
     <Compile Include="IFS\AffineRandomGenerator.cs" />
     <Compile Include="IFS\CoordinateTranslator.cs" />
     <Compile Include="IFS\DIFS.cs" />
+    <Compile Include="IFS\IFS.cs" />
     <Compile Include="IFS\IFSInfo.cs" />
     <Compile Include="IFS\IFSLibrary.cs" />
     <Compile Include="IFS\Matrix.cs" />
+    <Compile Include="IFS\RIFS.cs" />
     <Compile Include="IFS\ScreenMapper.cs" />
     <Compile Include="IFS\Utils.cs" />
     <Compile Include="IFS\Vector.cs" />
