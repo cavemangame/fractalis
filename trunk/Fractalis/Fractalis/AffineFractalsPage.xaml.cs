@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Fractalis.IFS;
-using Fractalis.LGrammaire;
 using Microsoft.Win32;
 
 namespace Fractalis
@@ -13,7 +10,7 @@ namespace Fractalis
     /// <summary>
     /// Interaction logic for AffineFractalsPage.xaml
     /// </summary>
-    public partial class AffineFractalsPage : Page
+    public partial class AffineFractalsPage
     {
         private readonly IFSLibrary currentLibrary = new IFSLibrary();
 
@@ -61,7 +58,7 @@ namespace Fractalis
 
             var difsAlgo = new DIFS();
             difsAlgo.ParseAndTranslateFunctions(Functions.Text, size);
-            FractalisImage.Source = difsAlgo.GetAttractor((int)size, depth);
+            FractalisImage.Source = difsAlgo.GetAttractor((int)size, depth, FractalColor);
 
             return null;
         }
@@ -100,7 +97,7 @@ namespace Fractalis
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\..\\Library\\IFsamples.flb");
+                currentLibrary.LoadLibrary("..\\..\\..\\Library\\IFsamples.ilb");
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)

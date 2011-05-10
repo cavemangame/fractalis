@@ -68,6 +68,7 @@ namespace Fractalis.IFS
                             sb.Append(s + Environment.NewLine);
                         }
                         info.Rules = sb.ToString();
+                        Fractals.Add(info);
                     }
                 }
             }
