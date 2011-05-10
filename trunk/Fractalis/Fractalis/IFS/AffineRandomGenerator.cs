@@ -9,8 +9,8 @@ namespace Fractalis.IFS
     /// </summary>
     public class AffineRandomGenerator
     {
-        private List<double> probabilities;
-        private Random rnd;
+        private readonly List<double> probabilities;
+        private readonly Random rnd;
         private double norm;
 
         public AffineRandomGenerator(IEnumerable<AffineMap> maps)

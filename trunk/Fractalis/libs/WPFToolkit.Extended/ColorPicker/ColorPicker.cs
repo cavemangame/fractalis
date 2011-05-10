@@ -57,7 +57,7 @@ namespace Microsoft.Windows.Controls
 
         private static void SelectedColorPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ColorPicker colorPicker = (ColorPicker)d;
+            var colorPicker = (ColorPicker)d;
             colorPicker.SetSelectedColor((Color)e.NewValue);
 
             colorPicker.OnSelectedColorChanged();
