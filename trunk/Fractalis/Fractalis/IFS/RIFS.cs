@@ -16,11 +16,12 @@ namespace Fractalis.IFS
             int x = screenSize / 2;
             int y = x;
 
-            for (int i = 0; i < 100 + depth; i++)
+            // за проход - точка, потому мы пока умножим на 10к
+            for (int i = 0; i < depth*10000 ; i++)
             {
                 int k = Pick();
                 int ii = (int)(Axioms[k].a * x + Axioms[k].b * y + Axioms[k].e);
-                int jj = (int)(Axioms[k].a * x + Axioms[k].b * y + Axioms[k].e);
+                int jj = (int)(Axioms[k].c * x + Axioms[k].d * y + Axioms[k].f);
                 if (0 <= ii && ii < screenSize && 0 <= jj && jj < screenSize)
                 {
                     T[ii, jj] = 1;
