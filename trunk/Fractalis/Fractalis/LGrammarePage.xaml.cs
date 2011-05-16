@@ -27,7 +27,7 @@ namespace Fractalis
             set { SetValue(FractalColorProperty, value); }
         }
         public static readonly DependencyProperty FractalColorProperty = DependencyProperty.Register(
-          "FractalColor", typeof(Color), typeof(Window1),
+          "FractalColor", typeof(Color), typeof(LGrammarePage),
           new FrameworkPropertyMetadata(Colors.Brown, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                                         SelectedColorPropertyChanged));
 
