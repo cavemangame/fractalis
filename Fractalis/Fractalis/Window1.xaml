@@ -13,6 +13,6 @@
                 <MenuItem Name="IFS" Header="Аттракторы" Click="IFS_Click"/>
             </MenuItem>
         </Menu>
-        <Frame Grid.Row="1"  NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="FramePages" Source="AffineFractalsPage.xaml" BorderBrush="Blue" BorderThickness="1"/>
+        <Frame Grid.Row="1"  NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="FramePages" Source="LGrammarePage.xaml" BorderBrush="Blue" BorderThickness="1"/>
     </Grid>
 </Window>

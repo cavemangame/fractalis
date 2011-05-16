@@ -3,7 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
       Loaded="Window_Loaded"
-    Title="L грамматики">
+    Title="L грамматики"
+      ShowsNavigationUI="False" KeepAlive="True">
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Left">
             <Grid Name="ToolsGrid">
