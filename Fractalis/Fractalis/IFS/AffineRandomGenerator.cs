@@ -27,11 +27,28 @@ namespace Fractalis.IFS
                 return;
             }
 
-            norm = maps.Sum(map => map.Det);
+            norm = maps.Sum(map => Math.Abs(map.Det));
+            Double min = Double.MaxValue;
+
             foreach (var map in maps)
             {
-                probabilities.Add(map.Det / norm);
+                var prob = Math.Abs(map.Det)/norm;
+                if (min > prob && prob > 0)
+                {
+                    min = prob;
+                }
+                probabilities.Add(prob);
             }
+            // у вырожденных матриц det == 0, но появиться в генераторе они должны - пожтому пусть мудут как минимальное
+            for (int i = 0; i < probabilities.Count; i++)
+            {
+                if (probabilities[i] == 0)
+                {
+                    probabilities[i] = min;
+                }
+            }
+            // не забываем пересчитать норму
+            norm = probabilities.Sum();
         }
 
         public double GetNewRandom()
