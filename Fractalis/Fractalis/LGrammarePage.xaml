@@ -110,6 +110,9 @@
             <StackPanel>
                 <Button Margin="50, 5" Click="ButtonFractal_Click">Рисовать</Button>
             </StackPanel>
+            <StackPanel>
+                <Button Margin="50, 5" Click="ButtonSave_Click">Сохранить</Button>
+            </StackPanel>
         </StackPanel>
         <StackPanel DockPanel.Dock="Left" Name="FractalisImagePanel" MinWidth="600" MinHeight="600">
             <Image Name="FractalisImage" HorizontalAlignment="Left" VerticalAlignment="Stretch"></Image>

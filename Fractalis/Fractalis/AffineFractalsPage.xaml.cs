@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Fractalis.IFS;
 using Microsoft.Win32;
 
@@ -123,6 +124,11 @@ namespace Fractalis
         private void FractalSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             TryGenerateFractal();
+        }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveImageHelper.SaveImage((BitmapSource)FractalisImage.Source);
         }
 
         #endregion
