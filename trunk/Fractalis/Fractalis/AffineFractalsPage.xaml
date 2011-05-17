@@ -45,7 +45,7 @@
                     Функции:
                 </Label>
 
-                <TextBox Name="Functions" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" IsEnabled="False" 
+                <TextBox Name="Functions" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                          TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="240"
                          Text="{Binding Path=Fractals/Rules}">
                 </TextBox>
