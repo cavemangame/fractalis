@@ -163,7 +163,15 @@ namespace Fractalis
         {
             TryGenerateFractal();
         }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveImageHelper.SaveImage((BitmapSource)FractalisImage.Source);
+        }
+
         #endregion
+
+    
     
     }
 }
