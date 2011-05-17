@@ -60,7 +60,7 @@
                     F=
                 </Label>
                 <TextBox Name="FRule" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" TextWrapping="Wrap" AcceptsReturn="True"
-                    PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" IsEnabled="False" MaxWidth="150"
+                    PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" MaxWidth="150"
                          Text="{Binding Path=Fractals/FRule}">
                 </TextBox>
 
@@ -68,14 +68,14 @@
                     b=
                 </Label>
                 <TextBox Name="bRule" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" MaxWidth="150" 
-                    PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" IsEnabled="False"
+                    PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" 
                          Text="{Binding Path=Fractals/BRule}">
                 </TextBox>
 
                 <Label Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right">
                     Доп.
                 </Label>
-                <TextBox Name="AddRules" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" IsEnabled="False" 
+                <TextBox Name="AddRules" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" 
                          TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="150"
                          Text="{Binding Path=Fractals/AddRules}">
                 </TextBox>
