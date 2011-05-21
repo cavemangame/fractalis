@@ -60,7 +60,7 @@ namespace Fractalis
             IFS.IFS ifsAlgo = null;
             if (DifsAlgo.IsChecked.Value)
             {
-                ifsAlgo = new DIFS();
+                ifsAlgo = new DIFS(true);
             }
             else
             {

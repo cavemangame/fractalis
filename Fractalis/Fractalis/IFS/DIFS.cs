@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System;
 
 namespace Fractalis.IFS
 {
@@ -10,6 +8,16 @@ namespace Fractalis.IFS
     /// </summary>
     public class DIFS : IFS
     {
+        /// <summary>
+        /// Опеределяет начальное множество как линию
+        /// </summary>
+        public bool IsLine { get; set; }
+
+        public DIFS(bool isLine)
+        {
+            IsLine = isLine;
+        }
+
         protected override BitmapSource GetAttractor(ScreenMapper start, int screenSize, int depth, Color fractalColor)
         {
             var S = new ScreenMapper(screenSize);
@@ -47,6 +55,29 @@ namespace Fractalis.IFS
 
         protected override ScreenMapper GetDefaultScreenMap(int n)
         {
+            if (!IsLine)
+            {
+                return GetPlaneDefaultScreen(n);
+            }
+            else
+            {
+                return GetLineDefaultScreen(n);
+            }
+        }
+
+        private ScreenMapper GetLineDefaultScreen(int n)
+        {
+            // начальная карта линия посредине
+            var screenMapper = new ScreenMapper(n);
+            for (int i = 0; i < n; i++)
+            {
+                screenMapper[i, n/2] = 1;
+            }
+            return screenMapper;
+        }
+
+        private ScreenMapper GetPlaneDefaultScreen(int n)
+        {
             // начальная карта всеь квадрат
             var screenMapper = new ScreenMapper(n);
             for (int i = 0; i < n; i++)
@@ -58,7 +89,5 @@ namespace Fractalis.IFS
             }
             return screenMapper;
         }
-
-       
     }
 }
