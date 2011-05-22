@@ -62,6 +62,8 @@ namespace Fractalis
                 return "Не указаны необходимые параметры";
             }
 
+            Transformator.Transformator.LToIFSTransform(currentLibrary.Fractals[FractalSelector.SelectedIndex]);
+
             int depth = String.IsNullOrEmpty(Depth.Text) ? 3 : Convert.ToInt32(Depth.Text);
             double angle = String.IsNullOrEmpty(Angle.Text) ? Math.PI / 3 : Convert.ToDouble(Angle.Text) * Math.PI / 180;
             double beginAngle = String.IsNullOrEmpty(BeginAngle.Text) ? 0 : Convert.ToDouble(BeginAngle.Text) * Math.PI / 180;

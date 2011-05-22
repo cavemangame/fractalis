@@ -86,7 +86,7 @@ namespace Fractalis.IFS
                    res[i, j] = values[i, j] * k;
                 }
             }
-            return this;
+            return res;
         }
 
         public Matrix Mul(Matrix other)
