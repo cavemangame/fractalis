@@ -14,10 +14,9 @@ namespace Fractalis.Transformator
     {
         #region L to IFS
 
-        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal)
+        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out int r)
         {
             string fWord = CorrectAxiom(lFractal);
-            int r;
             var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r);
             foreach (var map in bigIFSList)
             {

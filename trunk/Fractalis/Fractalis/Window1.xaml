@@ -11,6 +11,7 @@
             <MenuItem Header="Алгоритмы">
                 <MenuItem Name="Lgrammare" Header="L-грамматики" Click="Lgrammare_Click"/>
                 <MenuItem Name="IFS" Header="Аттракторы" Click="IFS_Click"/>
+                <MenuItem Name="Transform" Header="Трансформации" Click="Transform_Click"/>
             </MenuItem>
         </Menu>
         <Frame Grid.Row="1"  NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="FramePages" Source="LGrammarePage.xaml" BorderBrush="Blue" BorderThickness="1"/>

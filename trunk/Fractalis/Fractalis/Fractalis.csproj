@@ -75,6 +75,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LToIFSTransformerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +116,9 @@
     <Compile Include="LGrammaire\TurtleStep.cs" />
     <Compile Include="LGrammarePage.xaml.cs">
       <DependentUpon>LGrammarePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LToIFSTransformerPage.xaml.cs">
+      <DependentUpon>LToIFSTransformerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
