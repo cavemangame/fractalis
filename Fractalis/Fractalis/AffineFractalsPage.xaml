@@ -17,6 +17,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -33,35 +34,26 @@
                 </TextBlock>
                 <Button Name="LibraryLoad" Grid.Column="2" Grid.Row="0" Click="LibraryLoad_Click">...</Button>
 
-                <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
-                    Фрактал:
-                </Label>
+                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Text="Фрактал:"/>
                 <ComboBox Name="FractalSelector"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
                           ItemsSource="{Binding Path=Fractals}" DisplayMemberPath="Name" MaxWidth="180"
                           IsSynchronizedWithCurrentItem="True" SelectionChanged="FractalSelector_SelectionChanged">
                 </ComboBox>
 
-                <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center">
-                    Функции:
-                </Label>
-
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center" Text="Функции:"/>
                 <TextBox Name="Functions" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
                          TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="240"
                          Text="{Binding Path=Fractals/Rules}">
                 </TextBox>
 
-                <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right">
-                    Итераций:
-                </Label>
+                <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Text="Итераций:"/>
                 <Controls:NumericUpDown  Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="4" MaxWidth="180"
                                          Text="{Binding Path=Fractals/Depth}"/>
 
                 <RadioButton Name="DifsAlgo" GroupName="Ifs" Content="DIFS" Grid.Column="0" Grid.Row="5" IsChecked="True" HorizontalAlignment="Center"/>
                 <RadioButton Name="RifsAlgo" GroupName="Ifs" Content="RIFS" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"/>
 
-                <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right">
-                    Цвет:
-                </Label>
+                <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Text="Цвет:"/>
                 <Controls:ColorPicker Name="FractalColorPicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"
                                       SelectedColor="{Binding FractalColor, Mode=TwoWay}"
                                       CurrentColor="{Binding FractalColor}" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Shapes;
 using Fractalis.IFS;
 using Fractalis.LGrammaire;
 
@@ -14,10 +15,10 @@ namespace Fractalis.Transformator
     {
         #region L to IFS
 
-        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out double r)
+        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out double r, out BoundingRectangle boundingRectangle)
         {
             string fWord = CorrectAxiom(lFractal);
-            var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r);
+            var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r, out boundingRectangle);
             foreach (var map in bigIFSList)
             {
                 map.M = map.M.Mul(1/(double)r);
@@ -34,7 +35,7 @@ namespace Fractalis.Transformator
         /// <param name="angle">угол поворота</param>
         /// <param name="r">параметр, показывающий отношение длин F на соседних шагах</param>
         /// <returns></returns>
-        private static List<AffineMap> ComputeIFS(string word, double angle, out double r)
+        private static List<AffineMap> ComputeIFS(string word, double angle, out double r, out BoundingRectangle boundingRectangle)
         {
             var maps = new List<AffineMap>();
             double x0 = 0, y0 = 0, x1 = 0, y1 = 0;
@@ -91,6 +92,7 @@ namespace Fractalis.Transformator
             }
 
             r = Math.Max(xMax - xMin, yMax - yMin);
+            boundingRectangle = new BoundingRectangle {X0 = xMin, X1 = xMax, Y0 = yMin, Y1 = yMax};
             return maps;
         }
 
