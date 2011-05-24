@@ -14,7 +14,7 @@ namespace Fractalis.Transformator
     {
         #region L to IFS
 
-        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out int r)
+        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out double r)
         {
             string fWord = CorrectAxiom(lFractal);
             var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r);
@@ -34,7 +34,7 @@ namespace Fractalis.Transformator
         /// <param name="angle">угол поворота</param>
         /// <param name="r">параметр, показывающий отношение длин F на соседних шагах</param>
         /// <returns></returns>
-        private static List<AffineMap> ComputeIFS(string word, double angle, out int r)
+        private static List<AffineMap> ComputeIFS(string word, double angle, out double r)
         {
             var maps = new List<AffineMap>();
             double x0 = 0, y0 = 0, x1 = 0, y1 = 0;
@@ -90,7 +90,7 @@ namespace Fractalis.Transformator
                     yMax = y0;
             }
 
-            r = (int)Math.Max(xMax - xMin, yMax - yMin);
+            r = Math.Max(xMax - xMin, yMax - yMin);
             return maps;
         }
 

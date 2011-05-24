@@ -52,7 +52,7 @@
                     Аксиома:
                 </Label>
                 <TextBox x:Name="AxiomText" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" MaxWidth="150"
-                         PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" IsEnabled="False"
+                         PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" 
                          Text="{Binding Path=Fractals/Axiom}">
                 </TextBox>
 
