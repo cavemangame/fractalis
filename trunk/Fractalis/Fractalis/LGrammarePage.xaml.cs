@@ -144,7 +144,7 @@ namespace Fractalis
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\..\\Library\\samples.flb");
+                currentLibrary.LoadLibrary("..\\..\\Library\\samples.flb");
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)
