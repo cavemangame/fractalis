@@ -57,7 +57,6 @@ namespace Fractalis.IFS
                                        {
                                            Name = sr.ReadLine(),
                                            Depth = Convert.ToInt32(sr.ReadLine()),
-                                           Border = sr.ReadLine()
                                        };
 
                         var sb = new StringBuilder();

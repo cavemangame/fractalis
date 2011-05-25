@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Fractalis.LGrammaire;
 using Microsoft.Win32;
 
@@ -79,14 +70,12 @@ namespace Fractalis
             double r;
             BoundingRectangle fr;
             var ifsFunctions = Transformator.Transformator.LToIFSTransform(
-                currentLibrary.Fractals[FractalSelector.SelectedIndex], out r, out fr);
+                currentLibrary.Fractals[FractalSelector.SelectedIndex], out r);
             RValue.Text = @"Отношение F на соседних уровнях: " + r;
-            BoundingRect.Text = String.Format("{0:0.###};{1:0.###};{2:0.###};{3:0.###}\n", fr.X0, fr.Y0, fr.X1, fr.Y1);
             var sb = new StringBuilder();
             foreach (var map in ifsFunctions)
             {
-                //sb.Append(String.Format("{0:0.###};{1:0.###};{2:0.###};{3:0.###}\n", fr.X0, fr.Y0, fr.X1, fr.Y1));
-                sb.Append(String.Format("{0:0.###};{1:0.###};{2:0.###};{3:0.###};{4:0.###};{5:0.###}\n",
+                sb.Append(String.Format("{0:0.###};{1:0.###};{2:0.###};{3:0.###};{4:0.###};{5:0.###}\r\n",
                     map.a, map.b, map.c, map.d, map.e, map.f));
             }
             IFSRules.Text = sb.ToString();

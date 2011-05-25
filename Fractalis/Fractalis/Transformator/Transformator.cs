@@ -15,17 +15,23 @@ namespace Fractalis.Transformator
     {
         #region L to IFS
 
-        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out double r, out BoundingRectangle boundingRectangle)
+        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out double r)
         {
             string fWord = CorrectAxiom(lFractal);
-            var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r, out boundingRectangle);
+            BoundingRectangle br;
+            var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r, out br);
+            var smallIFSList = new List<AffineMap>();
+
+            var brMatrix = new Matrix(2, new[,] { { br.X0, br.Y0 }, { br.X1, br.Y1 } });
+            var eMatrix = new Matrix(2, new double[,] { { 0, 1 }, { 0, 1 } });
             foreach (var map in bigIFSList)
             {
-                map.M = map.M.Mul(1/(double)r);
+                map.M = map.M.Mul(1 / r);
                 map.e /= r;
                 map.f /= r;
+                smallIFSList.Add(CoordinateTranslator.Translate(map, brMatrix, eMatrix));
             }
-            return bigIFSList;
+            return smallIFSList;
         }
 
         /// <summary>
@@ -34,6 +40,7 @@ namespace Fractalis.Transformator
         /// <param name="word">F правило</param>
         /// <param name="angle">угол поворота</param>
         /// <param name="r">параметр, показывающий отношение длин F на соседних шагах</param>
+        /// <param name="boundingRectangle"></param>
         /// <returns></returns>
         private static List<AffineMap> ComputeIFS(string word, double angle, out double r, out BoundingRectangle boundingRectangle)
         {
@@ -91,7 +98,7 @@ namespace Fractalis.Transformator
                     yMax = y0;
             }
 
-            r = Math.Max(xMax - xMin, yMax - yMin);
+            r = xMax - xMin; // транслируется отрезок (0,1) в [xMin, xMax], на y пофиг
             boundingRectangle = new BoundingRectangle {X0 = xMin, X1 = xMax, Y0 = yMin, Y1 = yMax};
             return maps;
         }
