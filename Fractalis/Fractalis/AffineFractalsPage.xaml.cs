@@ -94,6 +94,7 @@ namespace Fractalis
                 {
                     currentLibrary.LoadLibrary(ofd.FileName);
                     ToolsGrid.DataContext = currentLibrary;
+                    FractalSelector.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -123,7 +124,6 @@ namespace Fractalis
 
         private void FractalSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            TryGenerateFractal();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)

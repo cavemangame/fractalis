@@ -2,19 +2,69 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.ComponentModel;
 
 namespace Fractalis.IFS
 {
     /// <summary>
     /// Библиотека фракталов, записанных в виде аффинных преобразований
     /// </summary>
-    public class IFSLibrary
+    public class IFSLibrary : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        #region Vars
 
-        public string Author { get; set; }
+        private string name;
 
-        public List<IFSInfo> Fractals { get; set; }
+        private string author;
+
+        private List<IFSInfo> fractals;
+
+        #endregion
+
+
+        #region Properties
+
+        public string Name
+        {
+            get { return name;}
+            set
+            {
+                if (value != name)
+                {
+                    this.name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        public string Author
+        {
+            get { return author; }
+            set
+            {
+                if (value != author)
+                {
+                    this.author = value;
+                    OnPropertyChanged("Author");
+                }
+            }
+        }
+
+        public List<IFSInfo> Fractals
+        {
+            get { return fractals; }
+            set
+            {
+
+                this.fractals = value;
+                OnPropertyChanged("Fractals");
+            }
+        }
+
+        #endregion
+
+
+        #region Save and Load
 
         public void SaveLibrary(string filePath)
         {
@@ -89,5 +139,22 @@ namespace Fractalis.IFS
             }
             return null;
         }
+
+        #endregion
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
     }
 }
