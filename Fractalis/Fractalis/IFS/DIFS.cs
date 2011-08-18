@@ -59,10 +59,7 @@ namespace Fractalis.IFS
             {
                 return GetPlaneDefaultScreen(n);
             }
-            else
-            {
-                return GetLineDefaultScreen(n);
-            }
+            return GetLineDefaultScreen(n);
         }
 
         private ScreenMapper GetLineDefaultScreen(int n)
