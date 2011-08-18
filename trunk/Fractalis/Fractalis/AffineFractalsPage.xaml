@@ -50,8 +50,9 @@
                 <Controls:NumericUpDown  Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="4" MaxWidth="180"
                                          Text="{Binding Path=Fractals/Depth}"/>
 
-                <RadioButton Name="DifsAlgo" GroupName="Ifs" Content="DIFS" Grid.Column="0" Grid.Row="5" IsChecked="True" HorizontalAlignment="Center"/>
-                <RadioButton Name="RifsAlgo" GroupName="Ifs" Content="RIFS" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"/>
+                <RadioButton Name="DifsAlgo" Margin="2" GroupName="Ifs" Content="DIFS" Grid.Column="0" Grid.Row="5" IsChecked="True" HorizontalAlignment="Center"/>
+                <CheckBox Name="DifsIsLine" Margin="2" Grid.Column="1" Grid.Row="5" IsChecked="False" Content="Начало как линия" HorizontalAlignment="Left"/>
+                <RadioButton Name="RifsAlgo" Margin="2" GroupName="Ifs" Content="RIFS" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Text="Цвет:"/>
                 <Controls:ColorPicker Name="FractalColorPicker" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"

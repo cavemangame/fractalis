@@ -31,9 +31,9 @@ namespace Fractalis.IFS
                     sw.WriteLine(info.Name);
                     sw.WriteLine(info.Depth);
                     sw.WriteLine(info.Rules);
-                    sw.WriteLine();
                 }
                 sw.Flush();
+                sw.Close();
             }
         }
 
@@ -46,8 +46,8 @@ namespace Fractalis.IFS
                     // инфа о самой библиотеке
                     Name = sr.ReadLine();
                     Author = sr.ReadLine();
-                    sr.ReadLine();
 
+                    sr.ReadLine();
 
                     // список фракталов
                     Fractals = new List<IFSInfo>();
@@ -76,6 +76,18 @@ namespace Fractalis.IFS
             {
                 throw new Exception("Ошибка при загрузке библиотеки фракталов: " + e.Message);
             }
+        }
+
+        public IFSInfo ContainsFractal(string name)
+        {
+            foreach (var ifsInfo in Fractals)
+            {
+                if (name == ifsInfo.Name)
+                {
+                    return ifsInfo;
+                }
+            }
+            return null;
         }
     }
 }

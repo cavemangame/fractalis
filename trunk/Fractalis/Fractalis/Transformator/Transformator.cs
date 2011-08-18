@@ -22,8 +22,8 @@ namespace Fractalis.Transformator
             var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r, out br);
             var smallIFSList = new List<AffineMap>();
 
-            var brMatrix = new Matrix(2, new[,] { { br.X0, br.Y0 }, { br.X1, br.Y1 } });
-            var eMatrix = new Matrix(2, new double[,] { { 0, 1 }, { 0, 1 } });
+            var brMatrix = new Matrix(2, new double[,] { { br.X0 / r, br.X1 / r }, { br.Y0 / r, br.Y1 / r } });
+            var eMatrix = new Matrix(2, new double[,] { { 0, 1 }, { 1, 0 } });
             foreach (var map in bigIFSList)
             {
                 map.M = map.M.Mul(1 / r);

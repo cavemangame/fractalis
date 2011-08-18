@@ -78,7 +78,8 @@
                 <Label Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" ToolTip="Глубина просчета доп. функций">
                     Глубина:
                 </Label>
-                <Controls:NumericUpDown  Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="7" MaxWidth="150"/>
+                <Controls:NumericUpDown  Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="7" MaxWidth="150"
+                                         Text="{Binding Path=Fractals/Depth}"/>
                 
                 <Label Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right">
                     Угол:
@@ -113,7 +114,8 @@
                 <TextBlock Padding="5" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                     Список вычисленных IFS функций в формате (a,b,c,d,e,f) аффинных коэффициентов
                 </TextBlock>
-                <TextBox Name="IFSRules" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="300" />
+                <TextBox Name="IFSRules" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" TextWrapping="Wrap" 
+                         AcceptsReturn="True" MaxWidth="500" MinWidth="500" MinHeight="400"/>
 
             </Grid>
         </StackPanel>
