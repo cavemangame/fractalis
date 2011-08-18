@@ -1,20 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.ComponentModel;
 
 namespace Fractalis.LGrammaire
 {
     /// <summary>
     /// Описание библиотеки фракталов
     /// </summary>
-    public class FractalisLibrary
+    public class FractalisLibrary : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        #region Vars
 
-        public string Author { get; set; }
+        private string name;
 
-        public List<FractalisInfo> Fractals { get; set; }
+        private string author;
 
+        private List<FractalisInfo> fractals;
+
+        #endregion
+
+
+        #region Properties
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value != name)
+                {
+                    this.name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        public string Author
+        {
+            get { return author; }
+            set
+            {
+                if (value != author)
+                {
+                    this.author = value;
+                    OnPropertyChanged("Author");
+                }
+            }
+        }
+
+        public List<FractalisInfo> Fractals
+        {
+            get { return fractals; }
+            set
+            {
+
+                this.fractals = value;
+                OnPropertyChanged("Fractals");
+            }
+        }
+
+        #endregion
+
+        #region Save and Load
 
         public void SaveLibrary(string filePath)
         {
@@ -78,5 +126,22 @@ namespace Fractalis.LGrammaire
                 throw new Exception("Ошибка при загрузке библиотеки фракталов: " + e.Message);
             }
         }
+
+        #endregion
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
     }
 }
