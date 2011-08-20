@@ -3,20 +3,20 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
-namespace Fractalis
+namespace Fractalis.Base
 {
     public class SaveImageHelper
     {
         public static void SaveImage(BitmapSource bitmap)
         {
             var dlg = new SaveFileDialog
-            {
-                FileName = "Fractalis",
-                DefaultExt = ".png",
-                FilterIndex = 1,
-                RestoreDirectory = true,
-                Filter = "PNG (.png)|*.png|BMP (.bmp)|*.bmp|GIF (.gif)|*.gif|JPEG (.jpeg)|*.jpeg"
-            };
+                          {
+                              FileName = "Fractalis",
+                              DefaultExt = ".png",
+                              FilterIndex = 1,
+                              RestoreDirectory = true,
+                              Filter = "PNG (.png)|*.png|BMP (.bmp)|*.bmp|GIF (.gif)|*.gif|JPEG (.jpeg)|*.jpeg"
+                          };
 
             var result = dlg.ShowDialog();
 

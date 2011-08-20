@@ -1,4 +1,4 @@
-﻿<Page x:Class="Fractalis.AffineFractalsPage"
+﻿<Page x:Class="Fractalis.Pages.AffineFractalsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"

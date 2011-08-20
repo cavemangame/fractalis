@@ -2,13 +2,13 @@
 
 namespace Fractalis
 {
-    public partial class Window1
+    public partial class MainWindow
     {
         private int currentAlgorithm = 0;
 
         #region Constructor
 
-        public Window1()
+        public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
@@ -16,11 +16,13 @@ namespace Fractalis
 
         #endregion
 
+        #region Обработчики кнопок меню
+
         private void Lgrammare_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             if (currentAlgorithm != 0)
             {
-                NavigateSomewhere(@"LGrammarePage.xaml");
+                NavigateSomewhere(@"Pages\LGrammarePage.xaml");
                 currentAlgorithm = 0;
             }
         }
@@ -29,7 +31,7 @@ namespace Fractalis
         {
             if (currentAlgorithm != 1)
             {
-                NavigateSomewhere(@"AffineFractalsPage.xaml");
+                NavigateSomewhere(@"Pages\AffineFractalsPage.xaml");
                 currentAlgorithm = 1;
             }
         }
@@ -38,10 +40,23 @@ namespace Fractalis
         {
             if (currentAlgorithm != 2)
             {
-                NavigateSomewhere(@"LToIFSTransformerPage.xaml");
+                NavigateSomewhere(@"Pages\LToIFSTransformerPage.xaml");
                 currentAlgorithm = 2;
             }
         }
+
+        private void itemHelp_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void itemAbout_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var wnd = new WindowAbout();
+            wnd.ShowDialog();
+        }
+
+        #endregion
 
         #region Методы для навигации
 
@@ -51,5 +66,6 @@ namespace Fractalis
         }
 
         #endregion
+
     }
 }

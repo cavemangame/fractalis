@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using Fractalis.LGrammaire;
+using Fractalis.Base;
 using Microsoft.Win32;
 using System.IO;
-using Fractalis.IFS;
 
-namespace Fractalis
+namespace Fractalis.Pages
 {
     public partial class LToIFSTransformerPage : Page
     {
-        private readonly FractalisLibrary currentLibrary = new FractalisLibrary();
+        private readonly FractalLibrary currentLibrary = new FractalLibrary();
         
         public LToIFSTransformerPage()
         {
@@ -26,18 +25,18 @@ namespace Fractalis
             try
             {
                 var ofd = new OpenFileDialog
-                {
-                    DefaultExt = "*.flb|flb",
-                    Filter = "fractalis lib(*.flb)|*.flb",
-                    FilterIndex = 1,
-                    RestoreDirectory = true,
-                    Title = "Загрузить библиотеку"
-                };
+                              {
+                                  DefaultExt = "*.flb|flb",
+                                  Filter = "fractalis lib(*.flb)|*.flb",
+                                  FilterIndex = 1,
+                                  RestoreDirectory = true,
+                                  Title = "Загрузить библиотеку"
+                              };
 
                 bool? dr = ofd.ShowDialog();
                 if (dr.Value)
                 {
-                    currentLibrary.LoadLibrary(ofd.FileName);
+                    currentLibrary.LoadLibrary(ofd.FileName, typeof(LFractalisInfo));
                     ToolsGrid.DataContext = currentLibrary;
                 }
             }
@@ -51,7 +50,7 @@ namespace Fractalis
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\Library\\samples.flb");
+                currentLibrary.LoadLibrary("..\\..\\Library\\samples.flb", typeof(LFractalisInfo));
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)
@@ -65,13 +64,13 @@ namespace Fractalis
             try
             {
                 var ofd = new SaveFileDialog
-                {
-                    DefaultExt = "*.ilb|ilb",
-                    Filter = "IFS lib(*.ilb)|*.ilb",
-                    FilterIndex = 1,
-                    RestoreDirectory = true,
-                    Title = "Сохранить в библиотеку IFS фракталов"
-                };
+                              {
+                                  DefaultExt = "*.ilb|ilb",
+                                  Filter = "IFS lib(*.ilb)|*.ilb",
+                                  FilterIndex = 1,
+                                  RestoreDirectory = true,
+                                  Title = "Сохранить в библиотеку IFS фракталов"
+                              };
 
                 bool? dr = ofd.ShowDialog();
                 if (dr.Value)
@@ -95,15 +94,14 @@ namespace Fractalis
         private void ButtonTransform_Click(object sender, RoutedEventArgs e)
         {
             double r;
-            BoundingRectangle fr;
             var ifsFunctions = Transformator.Transformator.LToIFSTransform(
-                currentLibrary.Fractals[FractalSelector.SelectedIndex], out r);
+                (LFractalisInfo)currentLibrary.Fractals[FractalSelector.SelectedIndex], out r);
             RValue.Text = @"Отношение F на соседних уровнях: " + r;
             var sb = new StringBuilder();
             foreach (var map in ifsFunctions)
             {
                 sb.Append(String.Format("{0:0.###};{1:0.###};{2:0.###};{3:0.###};{4:0.###};{5:0.###}\n",
-                    map.a, map.b, map.c, map.d, map.e, map.f));
+                                        map.a, map.b, map.c, map.d, map.e, map.f));
             }
             IFSRules.Text = sb.ToString();
         }
@@ -111,19 +109,19 @@ namespace Fractalis
         /// <summary>
         /// Создать новую библиотеку и добавить туда фрактал
         /// </summary>
-        private void SaveIFSToNewLibrary(SaveFileDialog ofd)
+        private void SaveIFSToNewLibrary(FileDialog ofd)
         {
             // новая библиотека
-            IFSLibrary newLibrary = new IFSLibrary();
-            newLibrary.Author = "Fractalis toolbox";
-            newLibrary.Name = ofd.SafeFileName;
+            var newLibrary = new FractalLibrary {Author = "Fractalis toolbox", Name = ofd.SafeFileName};
 
             // добавляем вычисленный фрактал в виде набора IFS
-            IFSInfo fractal = new IFSInfo();
-            fractal.Name = FractalSelector.Text;
-            fractal.Depth = Convert.ToInt32(Depth.Value);
-            fractal.Rules = IFSRules.Text;
-            newLibrary.Fractals = new List<IFSInfo>() {fractal};
+            var fractal = new IFSFractalisInfo
+                              {
+                                  Name = FractalSelector.Text,
+                                  Depth = Convert.ToInt32(Depth.Value),
+                                  Rules = IFSRules.Text
+                              };
+            newLibrary.Fractals = new List<FractalisInfo> {fractal};
             newLibrary.SaveLibrary(ofd.FileName);
         }
 
@@ -132,17 +130,19 @@ namespace Fractalis
         /// Если уже есть с таким именем - то он будет перезаписан
         /// </summary>
         /// <param name="ofd"></param>
-        private void SaveIFSToOldLibrary(SaveFileDialog ofd)
+        private void SaveIFSToOldLibrary(FileDialog ofd)
         {
-            IFSLibrary oldLibrary = new IFSLibrary();
-            oldLibrary.LoadLibrary(ofd.FileName);
-            IFSInfo oldFractal = oldLibrary.ContainsFractal(FractalSelector.Text);
+            var oldLibrary = new FractalLibrary();
+            oldLibrary.LoadLibrary(ofd.FileName, typeof(IFSFractalisInfo));
+            var oldFractal = (IFSFractalisInfo)oldLibrary.ContainsFractal(FractalSelector.Text);
             if (oldFractal == null)
             {
-                IFSInfo fractal = new IFSInfo();
-                fractal.Name = FractalSelector.Text;
-                fractal.Depth = Convert.ToInt32(Depth.Value);
-                fractal.Rules = IFSRules.Text;
+                var fractal = new IFSFractalisInfo
+                                  {
+                                      Name = FractalSelector.Text,
+                                      Depth = Convert.ToInt32(Depth.Value),
+                                      Rules = IFSRules.Text
+                                  };
                 oldLibrary.Fractals.Add(fractal);
             }
             else

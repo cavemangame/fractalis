@@ -3,17 +3,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Fractalis.Base;
 using Fractalis.IFS;
 using Microsoft.Win32;
 
-namespace Fractalis
+namespace Fractalis.Pages
 {
     /// <summary>
     /// Interaction logic for AffineFractalsPage.xaml
     /// </summary>
     public partial class AffineFractalsPage
     {
-        private readonly IFSLibrary currentLibrary = new IFSLibrary();
+        private readonly FractalLibrary currentLibrary = new FractalLibrary();
 
         /// <summary>
         /// Цвет фрактала. Задается в ColorPicker.
@@ -24,9 +25,9 @@ namespace Fractalis
             set { SetValue(FractalColorProperty, value); }
         }
         public static readonly DependencyProperty FractalColorProperty = DependencyProperty.Register(
-          "FractalColor", typeof(Color), typeof(AffineFractalsPage),
-          new FrameworkPropertyMetadata(Colors.Brown, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                                        SelectedColorPropertyChanged));
+            "FractalColor", typeof(Color), typeof(AffineFractalsPage),
+            new FrameworkPropertyMetadata(Colors.Brown, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                          SelectedColorPropertyChanged));
 
         public AffineFractalsPage()
         {
@@ -55,7 +56,7 @@ namespace Fractalis
             }
 
             int depth = String.IsNullOrEmpty(Depth.Text) ? 3 : Convert.ToInt32(Depth.Text);
-            double size = Math.Min(FractalisImagePanel.ActualWidth, FractalisImagePanel.ActualHeight);
+            double size = Math.Min((sbyte) FractalisImagePanel.ActualWidth, (sbyte) FractalisImagePanel.ActualHeight);
 
             IFS.IFS ifsAlgo = null;
             if (DifsAlgo.IsChecked.Value)
@@ -81,18 +82,18 @@ namespace Fractalis
             try
             {
                 var ofd = new OpenFileDialog
-                {
-                    DefaultExt = "*.ilb|ilb",
-                    Filter = "IFS lib(*.ilb)|*.ilb",
-                    FilterIndex = 1,
-                    RestoreDirectory = true,
-                    Title = "Загрузить библиотеку IFS фракталов"
-                };
+                              {
+                                  DefaultExt = "*.ilb|ilb",
+                                  Filter = "IFS lib(*.ilb)|*.ilb",
+                                  FilterIndex = 1,
+                                  RestoreDirectory = true,
+                                  Title = "Загрузить библиотеку IFS фракталов"
+                              };
 
                 bool? dr = ofd.ShowDialog();
                 if (dr.Value)
                 {
-                    currentLibrary.LoadLibrary(ofd.FileName);
+                    currentLibrary.LoadLibrary(ofd.FileName, typeof(IFSFractalisInfo));
                     ToolsGrid.DataContext = currentLibrary;
                     FractalSelector.SelectedIndex = 0;
                 }
@@ -107,7 +108,7 @@ namespace Fractalis
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\Library\\IFsamples.ilb");
+                currentLibrary.LoadLibrary("..\\..\\Library\\IFsamples.ilb", typeof(IFSFractalisInfo));
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)
@@ -122,7 +123,7 @@ namespace Fractalis
             page.TryGenerateFractal();
         }
 
-        private void FractalSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void FractalSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
 

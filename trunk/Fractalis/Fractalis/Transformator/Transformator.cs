@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Shapes;
+using Fractalis.Base;
 using Fractalis.IFS;
 using Fractalis.LGrammaire;
 
@@ -15,7 +16,7 @@ namespace Fractalis.Transformator
     {
         #region L to IFS
 
-        public static List<AffineMap> LToIFSTransform(FractalisInfo lFractal, out double r)
+        public static List<AffineMap> LToIFSTransform(LFractalisInfo lFractal, out double r)
         {
             string fWord = CorrectAxiom(lFractal);
             BoundingRectangle br;
@@ -126,7 +127,7 @@ namespace Fractalis.Transformator
                           };
         }
 
-        private static string CorrectAxiom(FractalisInfo lFractal)
+        private static string CorrectAxiom(LFractalisInfo lFractal)
         {
             // конвертим l описание с тем, чтобы в аксиоме было просто F
             // TODO: b тоже надо бы
