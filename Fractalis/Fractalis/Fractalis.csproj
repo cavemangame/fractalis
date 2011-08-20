@@ -67,57 +67,61 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AffineFractalsPage.xaml">
+    <Page Include="Pages\AffineFractalsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LGrammarePage.xaml">
+    <Page Include="Pages\LGrammarePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LToIFSTransformerPage.xaml">
+    <Page Include="Pages\LToIFSTransformerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window1.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AffineFractalsPage.xaml.cs">
+    <Compile Include="Pages\AffineFractalsPage.xaml.cs">
       <DependentUpon>AffineFractalsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\FractalisInfo.cs" />
     <Compile Include="IFS\AffineMap.cs" />
     <Compile Include="IFS\AffineRandomGenerator.cs" />
     <Compile Include="IFS\CoordinateTranslator.cs" />
     <Compile Include="IFS\DIFS.cs" />
     <Compile Include="IFS\IFS.cs" />
-    <Compile Include="IFS\IFSInfo.cs" />
-    <Compile Include="IFS\IFSLibrary.cs" />
+    <Compile Include="Base\IFSFractalisInfo.cs" />
+    <Compile Include="Base\FractalLibrary.cs" />
     <Compile Include="IFS\Matrix.cs" />
     <Compile Include="IFS\RIFS.cs" />
     <Compile Include="IFS\ScreenMapper.cs" />
     <Compile Include="IFS\Utils.cs" />
     <Compile Include="IFS\Vector.cs" />
     <Compile Include="LGrammaire\BoundingRectangle.cs" />
-    <Compile Include="LGrammaire\FractalisInfo.cs" />
-    <Compile Include="LGrammaire\FractalisLibrary.cs" />
+    <Compile Include="Base\LFractalisInfo.cs" />
     <Compile Include="LGrammaire\LGrammareHelper.cs" />
     <Compile Include="LGrammaire\LLanguage.cs" />
     <Compile Include="LGrammaire\TurtleStep.cs" />
-    <Compile Include="LGrammarePage.xaml.cs">
+    <Compile Include="Pages\LGrammarePage.xaml.cs">
       <DependentUpon>LGrammarePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LToIFSTransformerPage.xaml.cs">
+    <Compile Include="Pages\LToIFSTransformerPage.xaml.cs">
       <DependentUpon>LToIFSTransformerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -133,8 +137,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SaveImageHelper.cs" />
+    <Compile Include="Base\SaveImageHelper.cs" />
     <Compile Include="Transformator\Transformator.cs" />
+    <Compile Include="WindowAbout.xaml.cs">
+      <DependentUpon>WindowAbout.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -148,7 +155,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <Resource Include="fractalis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

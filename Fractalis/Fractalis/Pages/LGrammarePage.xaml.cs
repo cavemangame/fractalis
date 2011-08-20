@@ -5,18 +5,18 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Fractalis.Base;
 using Fractalis.LGrammaire;
-using Fractalis.IFS;
 using Microsoft.Win32;
 
-namespace Fractalis
+namespace Fractalis.Pages
 {
     /// <summary>
     /// Interaction logic for LGrammarePage.xaml
     /// </summary>
     public partial class LGrammarePage : Page
     {
-        private readonly FractalisLibrary currentLibrary = new FractalisLibrary();
+        private readonly FractalLibrary currentLibrary = new FractalLibrary();
 
         /// <summary>
         /// Цвет фрактала. Задается в ColorPicker.
@@ -27,9 +27,9 @@ namespace Fractalis
             set { SetValue(FractalColorProperty, value); }
         }
         public static readonly DependencyProperty FractalColorProperty = DependencyProperty.Register(
-          "FractalColor", typeof(Color), typeof(LGrammarePage),
-          new FrameworkPropertyMetadata(Colors.Brown, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                                        SelectedColorPropertyChanged));
+            "FractalColor", typeof(Color), typeof(LGrammarePage),
+            new FrameworkPropertyMetadata(Colors.Brown, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                          SelectedColorPropertyChanged));
 
         #region Constructor
 
@@ -66,20 +66,20 @@ namespace Fractalis
             double beginAngle = String.IsNullOrEmpty(BeginAngle.Text) ? 0 : Convert.ToDouble(BeginAngle.Text) * Math.PI / 180;
 
             var labirinthusBitmap = new RenderTargetBitmap((int)FractalisImagePanel.ActualWidth,
-                (int)FractalisImagePanel.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+                                                           (int)FractalisImagePanel.ActualHeight, 96, 96, PixelFormats.Pbgra32);
             var boundRect = new BoundingRectangle
-            {
-                X0 = 0,
-                X1 = FractalisImagePanel.ActualWidth,
-                Y0 = 0,
-                Y1 = FractalisImagePanel.ActualHeight
-            };
+                                {
+                                    X0 = 0,
+                                    X1 = FractalisImagePanel.ActualWidth,
+                                    Y0 = 0,
+                                    Y1 = FractalisImagePanel.ActualHeight
+                                };
 
             Dictionary<char, string> addRules = LGrammareHelper.ParseAddRules(AddRules.Text);
 
             string word = LGrammareHelper.TraceInputRules(AxiomText.Text, FRule.Text, bRule.Text, addRules, depth);
             DrawingVisual dw = LGrammareHelper.DrawLFractalis(word, angle, beginAngle, boundRect, 
-                new SolidColorBrush(FractalColor));
+                                                              new SolidColorBrush(FractalColor));
             labirinthusBitmap.Render(dw);
             FractalisImage.Source = labirinthusBitmap;
 
@@ -129,7 +129,7 @@ namespace Fractalis
                 bool? dr = ofd.ShowDialog();
                 if (dr.Value)
                 {
-                    currentLibrary.LoadLibrary(ofd.FileName);
+                    currentLibrary.LoadLibrary(ofd.FileName, typeof(LFractalisInfo));
                     ToolsGrid.DataContext = currentLibrary;
                     FractalSelector.SelectedIndex = 0;
                 }
@@ -144,7 +144,7 @@ namespace Fractalis
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\Library\\samples.flb");
+                currentLibrary.LoadLibrary("..\\..\\Library\\samples.flb", typeof(LFractalisInfo));
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ namespace Fractalis
             page.TryGenerateFractal();
         }
 
-        private void FractalSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void FractalSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
 
