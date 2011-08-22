@@ -56,7 +56,7 @@ namespace Fractalis.Pages
             }
 
             int depth = String.IsNullOrEmpty(Depth.Text) ? 3 : Convert.ToInt32(Depth.Text);
-            double size = Math.Min((sbyte) FractalisImagePanel.ActualWidth, (sbyte) FractalisImagePanel.ActualHeight);
+            double size = Math.Min(FractalisImagePanel.ActualWidth, FractalisImagePanel.ActualHeight);
 
             IFS.IFS ifsAlgo = null;
             if (DifsAlgo.IsChecked.Value)
