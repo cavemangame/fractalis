@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using Microsoft.Windows.Controls;
 
 namespace Fractalis
 {
@@ -47,7 +49,14 @@ namespace Fractalis
 
         private void itemHelp_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            try
+            {
+                Process.Start("wordpad.exe", "help.rtf");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка при запуске help");
+            }
         }
 
         private void itemAbout_Click(object sender, System.Windows.RoutedEventArgs e)

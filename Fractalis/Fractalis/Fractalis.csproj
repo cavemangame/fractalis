@@ -146,6 +146,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="help.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Library\IFsamples.ilb" />
     <None Include="Library\samples.flb" />
     <None Include="Properties\Settings.settings">
