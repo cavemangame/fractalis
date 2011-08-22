@@ -108,7 +108,7 @@ namespace Fractalis.Pages
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\Library\\IFsamples.ilb", typeof(IFSFractalisInfo));
+                currentLibrary.LoadLibrary(@".\Library\IFsamples.ilb", typeof(IFSFractalisInfo));
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)
