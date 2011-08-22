@@ -27,91 +27,63 @@
                     <ColumnDefinition Width="20" MinWidth="25"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right">
-                    Библиотека:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Text="Библиотека:" Grid.Row="0" HorizontalAlignment="Right"/>
                 <TextBlock Margin="2" Name="LibraryName" Grid.Column="1" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center"
-                           Text="{Binding Path=Name}">
+                           Text="{Binding Path=Name}"/>
+                <Button Margin="2" Name="LibraryLoad" Grid.Column="2" Grid.Row="0" Click="LibraryLoad_Click"
+                        ToolTip="Кликните для загрузки библиотеки фракталов">...</Button>
 
-                </TextBlock>
-                <Button Margin="2" Name="LibraryLoad" Grid.Column="2" Grid.Row="0" Click="LibraryLoad_Click">...</Button>
-
-                <Label Margin="2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
-                    Фрактал:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="1" Text="Фрактал:" HorizontalAlignment="Right"/>
                 <ComboBox Margin="2" Name="FractalSelector"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"
                           ItemsSource="{Binding Path=Fractals}" DisplayMemberPath="Name" MaxWidth="150"
-                          IsSynchronizedWithCurrentItem="True" SelectionChanged="FractalSelector_SelectionChanged">
-                </ComboBox>
+                          IsSynchronizedWithCurrentItem="True" SelectionChanged="FractalSelector_SelectionChanged"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" HorizontalAlignment="Center">
-                    Конструктор фракталов
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.ColumnSpan="3" Text="Конструктор фракталов" Grid.Row="2" HorizontalAlignment="Center"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right">
-                    Аксиома:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="3" Text="Аксиома:" HorizontalAlignment="Right"/>
                 <TextBox Margin="2" x:Name="AxiomText" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" MaxWidth="150"
                          PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" 
-                         Text="{Binding Path=Fractals/Axiom}">
-                </TextBox>
+                         Text="{Binding Path=Fractals/Axiom}"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right">
-                    F=
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="4" Text="F=" HorizontalAlignment="Right"/>
                 <TextBox Margin="2" Name="FRule" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" TextWrapping="Wrap" AcceptsReturn="True"
                     PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" MaxWidth="150"
-                         Text="{Binding Path=Fractals/FRule}">
-                </TextBox>
+                    Text="{Binding Path=Fractals/FRule}" ToolTip="Список F правил"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right">
-                    b=
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="5" Text="b=" HorizontalAlignment="Right"/>
                 <TextBox Margin="2" Name="bRule" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" MaxWidth="150" 
                     PreviewTextInput="PreviewTextInput" DataObject.Pasting="Value_Pasting" 
-                         Text="{Binding Path=Fractals/BRule}">
-                </TextBox>
+                    Text="{Binding Path=Fractals/BRule}" ToolTip="Список b правил"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right">
-                    Доп.
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="6" Text="Доп." HorizontalAlignment="Right"/>
                 <TextBox Margin="2" Name="AddRules" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" 
-                         TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="150"
-                         Text="{Binding Path=Fractals/AddRules}">
-                </TextBox>
+                    TextWrapping="Wrap" AcceptsReturn="True" MaxWidth="150"
+                    Text="{Binding Path=Fractals/AddRules}" ToolTip="Список дополнительных правил и переменных"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right">
-                    Угол:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="7" Text="Угол:"  HorizontalAlignment="Right"/>
                 <Controls:NumericUpDown Margin="2" Name="Angle" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" MaxWidth="150"
-                         Text="{Binding Path=Fractals/Angle}"/>
+                         Text="{Binding Path=Fractals/Angle}" ToolTip="Угол поворота"/>
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Right">
-                    Глубина:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="8" Text="Глубина:" HorizontalAlignment="Right"/>
                 <Controls:NumericUpDown Margin="2" Name="Depth" Grid.Column="1"  Grid.ColumnSpan="2" Grid.Row="8" MaxWidth="150"
-                                         Text="{Binding Path=Fractals/Depth}"/>
+                          Text="{Binding Path=Fractals/Depth}" ToolTip="Глубина просчета правил"/>
 
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right">
-                    Начальный угол:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Grid.Row="9" Text="Начальный угол:" HorizontalAlignment="Right"/>
                 <Controls:NumericUpDown Margin="2" Name="BeginAngle" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" 
-                         Text="{Binding Path=Fractals/BeginAngle}"/>
+                         Text="{Binding Path=Fractals/BeginAngle}" ToolTip="Начальный угол:"/>
 
 
-                <Label Margin="2" Grid.Column="0" Grid.Row="10" HorizontalAlignment="Right">
-                    Цвет:
-                </Label>
+                <TextBlock Margin="2" Grid.Column="0" Text="Цвет:" Grid.Row="10" HorizontalAlignment="Right"/>
                 <Controls:ColorPicker Margin="2" Name="FractalColorPicker" Grid.Column="1" Grid.Row="10"
                                       SelectedColor="{Binding FractalColor, Mode=TwoWay}"
                                       CurrentColor="{Binding FractalColor}" />
             </Grid>
             <StackPanel>
-                <Button Margin="50, 5" Click="ButtonFractal_Click">Рисовать</Button>
+                <Button Margin="50, 5" Click="ButtonFractal_Click" ToolTip="Расчитать и отобразить фрактал">Рисовать</Button>
             </StackPanel>
             <StackPanel>
-                <Button Margin="50, 5" Click="ButtonSave_Click">Сохранить</Button>
+                <Button Margin="50, 5" Click="ButtonSave_Click" ToolTip="Сохранить в виде рисунка">Сохранить</Button>
             </StackPanel>
         </StackPanel>
         <StackPanel DockPanel.Dock="Left" Name="FractalisImagePanel" MinWidth="600" MinHeight="600">
