@@ -144,7 +144,7 @@ namespace Fractalis.Pages
         {
             try
             {
-                currentLibrary.LoadLibrary("..\\..\\Library\\samples.flb", typeof(LFractalisInfo));
+                currentLibrary.LoadLibrary(@".\Library\samples.flb", typeof(LFractalisInfo));
                 ToolsGrid.DataContext = currentLibrary;
             }
             catch (Exception ex)
