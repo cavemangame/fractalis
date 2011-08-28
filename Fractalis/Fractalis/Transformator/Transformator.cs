@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Shapes;
 using Fractalis.Base;
 using Fractalis.IFS;
 using Fractalis.LGrammaire;
@@ -16,20 +13,23 @@ namespace Fractalis.Transformator
     {
         #region L to IFS
 
-        public static List<AffineMap> LToIFSTransform(LFractalisInfo lFractal, out double r)
+        public static List<AffineMap> LToIFSTransform(LFractalisInfo lFractal, out double xr, out double yr)
         {
             string fWord = CorrectAxiom(lFractal);
             BoundingRectangle br;
-            var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out r, out br);
+            var bigIFSList = ComputeIFS(fWord, lFractal.Angle, out xr, out yr, out br);
             var smallIFSList = new List<AffineMap>();
 
-            var brMatrix = new Matrix(2, new double[,] { { br.X0 / r, br.X1 / r }, { br.Y0 / r, br.Y1 / r } });
-            var eMatrix = new Matrix(2, new double[,] { { 0, 1 }, { 1, 0 } });
+            var maxr = Math.Max(xr, yr);
+            // тут сжимаем/растягиваем по осям и распологаем получившийся фрактал так,
+            // чтобы он распологался как фракталы из модуля IFS (сверху вниз и слева направо)
+            var brMatrix = new Matrix(2, new[,] { { br.X0 / xr, br.X1 / xr }, { br.Y0 / yr, br.Y1 / yr } });
+            var eMatrix = new Matrix(2, new double[,] { { 1, 0 }, { 0, 1 } });
             foreach (var map in bigIFSList)
             {
-                map.M = map.M.Mul(1 / r);
-                map.e /= r;
-                map.f /= r;
+                map.M = map.M.Mul(1 / maxr);
+                map.e /= maxr;
+                map.f /= maxr;
                 smallIFSList.Add(CoordinateTranslator.Translate(map, brMatrix, eMatrix));
             }
             return smallIFSList;
@@ -43,7 +43,7 @@ namespace Fractalis.Transformator
         /// <param name="r">параметр, показывающий отношение длин F на соседних шагах</param>
         /// <param name="boundingRectangle"></param>
         /// <returns></returns>
-        private static List<AffineMap> ComputeIFS(string word, double angle, out double r, out BoundingRectangle boundingRectangle)
+        private static List<AffineMap> ComputeIFS(string word, double angle, out double xr, out double yr, out BoundingRectangle boundingRectangle)
         {
             var maps = new List<AffineMap>();
             double x0 = 0, y0 = 0, x1 = 0, y1 = 0;
@@ -99,8 +99,9 @@ namespace Fractalis.Transformator
                     yMax = y0;
             }
 
-            r = xMax - xMin; // транслируется отрезок (0,1) в [xMin, xMax], на y пофиг
-            boundingRectangle = new BoundingRectangle {X0 = xMin, X1 = xMax, Y0 = yMin, Y1 = yMax};
+            xr = xMax - xMin; // транслируется отрезок (0,1) в [xMin, xMax]
+            yr = yMax - yMin; // транслируется отрезок (0,1) в [yMin, yMax]
+            boundingRectangle = new BoundingRectangle { X0 = xMin, X1 = xMax, Y0 = yMin, Y1 = yMax };
             return maps;
         }
 
