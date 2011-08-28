@@ -93,10 +93,10 @@ namespace Fractalis.Pages
 
         private void ButtonTransform_Click(object sender, RoutedEventArgs e)
         {
-            double r;
+            double xr, yr;
             var ifsFunctions = Transformator.Transformator.LToIFSTransform(
-                (LFractalisInfo)currentLibrary.Fractals[FractalSelector.SelectedIndex], out r);
-            RValue.Text = @"Отношение F на соседних уровнях: " + r;
+                (LFractalisInfo)currentLibrary.Fractals[FractalSelector.SelectedIndex], out xr, out yr);
+            RValue.Text = @"Отношение F на соседних уровнях: " + xr;
             var sb = new StringBuilder();
             foreach (var map in ifsFunctions)
             {
